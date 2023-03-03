@@ -4,12 +4,14 @@ import { AnimatePresence } from "framer-motion";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Terms from "../pages/Terms";
+import Nav from "./Nav";
 type Props = {};
 
 const AnimatedRoutes = (props: Props) => {
   const location = useLocation();
   return (
     <AnimatePresence>
+      <Nav />
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>

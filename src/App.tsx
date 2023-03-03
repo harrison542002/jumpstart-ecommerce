@@ -1,14 +1,18 @@
-import { BrowserRouter, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import Footer from "./components/Footer";
-import Nav from "./components/Nav";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Nav />
         <AnimatedRoutes />
+        <Routes>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+        </Routes>
         <Footer />
       </BrowserRouter>
     </div>
