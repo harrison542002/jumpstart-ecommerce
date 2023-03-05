@@ -79,7 +79,9 @@ border-b border-gray-200 firefox:bg-opacity-30 text-lg shadow-md grid lg:grid-co
       >
         <div className="grid grid-cols-3 text-black">
           <div>
-            <p className="font-bold text-lg mt-1">Electronics</p>
+            <Link to={"/products"} className="font-bold text-lg mt-1">
+              Electronics
+            </Link>
             <ul className="text-sm text-purple-500">
               <li>Asus</li>
               <li>HP</li>

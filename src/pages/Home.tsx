@@ -7,6 +7,7 @@ import Electronic from "../assets/electronic.jpg";
 import Food from "../assets/food.jpg";
 import Jewellery from "../assets/jewellery.jpg";
 import ProductCategory from "../components/ProductCategory";
+import { Link } from "react-router-dom";
 type Props = {};
 
 const Home = (props: Props) => {
@@ -26,12 +27,13 @@ const Home = (props: Props) => {
               Jumpstart provides tons of Accessories for your daily. All product
               are validated and authentic based by original brand.
             </p>
-            <button
+            <Link
+              to={"/register"}
               className="text-xl bg-orange-500 p-3 rounded-lg shadow-lg font-bold text-white hover:bg-orange-600
             hover:-translate-y-3 transition-all delay-75 duration-700 mb-10 lg:mb-0"
             >
               Get Started
-            </button>
+            </Link>
           </div>
         </div>
         <div className="lg:rounded-bl-lg">

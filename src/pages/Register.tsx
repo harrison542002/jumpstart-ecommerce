@@ -3,12 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Google from "../assets/google-icon.svg";
 import { Link } from "react-router-dom";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
 
 type Props = {};
 
 const Register = (props: Props) => {
   return (
-    <div className="lg:grid grid-cols-2">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: 0.1, duration: 1.5 } }}
+      exit={{ opacity: 0, transition: { delay: 0.05, duration: 1 } }}
+      className="lg:grid grid-cols-2"
+    >
       <div className="lg:block hidden bg-gradient-to-r from-purple-500 to-indigo-500 mx-5 rounded-md shadow-xl">
         <div className="flex flex-col justify-center h-full">
           <p className="text-center tracking-wide text-white text-2xl font-light">
@@ -105,7 +111,7 @@ const Register = (props: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

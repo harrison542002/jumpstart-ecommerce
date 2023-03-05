@@ -2,11 +2,17 @@ import Google from "../assets/google-icon.svg";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 type Props = {};
 
 const Login = (props: Props) => {
   return (
-    <div className="lg:grid grid-cols-2">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: 0.1, duration: 1.5 } }}
+      exit={{ opacity: 0, transition: { delay: 0.05, duration: 1 } }}
+      className="lg:grid grid-cols-2"
+    >
       <div className="flex justify-center mt-16">
         <div>
           <h1 className="text-3xl font-bold text-center">Welcome Back!</h1>
@@ -88,7 +94,7 @@ const Login = (props: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

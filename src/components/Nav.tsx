@@ -14,6 +14,8 @@ const Nav = (props: Props) => {
       location.pathname.includes("register")
     ) {
       setStatus(NavStatus.LoginOrRegister);
+    } else {
+      setStatus(NavStatus.Public);
     }
   }, [location]);
   return (
