@@ -4,16 +4,25 @@ const URLPREFIX = "/product";
 
 export const getProducts = (
   pageNumber: number | null,
-  category: String | null
+  category: string | null,
+  brand: string | null,
+  lowPrice: string | null,
+  highPrice: string | null,
+  fixedPrice: string | null
 ) => {
+  const parameter: any = {};
+  if (category) parameter.category = category;
+  if (brand) parameter.brand = brand;
+  if (lowPrice) parameter.lowPrice = lowPrice;
+  if (highPrice) parameter.highPrice = highPrice;
+  if (fixedPrice) parameter.fixedPrice = fixedPrice;
+  console.log(parameter);
+
   if (!pageNumber) {
     pageNumber = 0;
   }
-  if (!category) {
-    return axios.get(URLPREFIX + "/all/" + pageNumber);
-  }
 
   return axios.get(URLPREFIX + "/all/" + pageNumber, {
-    params: { category: category },
+    params: parameter,
   });
 };

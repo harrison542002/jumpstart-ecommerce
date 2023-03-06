@@ -71,11 +71,10 @@ border-b border-gray-200 firefox:bg-opacity-30 text-lg shadow-md grid lg:grid-co
           </Link>
         </div>
       </div>
-      <motion.div
-        className="absolute lg:right-72 lg:w-1/2 z-50 bg-white mt-1 rounded-md shadow-sm border-2 border-gray-100
+      <div
+        className="absolute lg:right-72 lg:w-1/2 z-50 bg-white rounded-md shadow-sm border-2 border-gray-100
     p-3"
         hidden={!open}
-        whileInView={{ scale: 1.05, transition: { delay: 0.2, duration: 2 } }}
       >
         <div className="grid grid-cols-3 text-black">
           <div>
@@ -113,7 +112,7 @@ border-b border-gray-200 firefox:bg-opacity-30 text-lg shadow-md grid lg:grid-co
             <p className="font-bold text-lg mt-1">Jewelleries</p>{" "}
           </div>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 };
