@@ -1,4 +1,4 @@
-# Jumpstart e-commerce 
+# Jumpstart e-commerce 🌟
 
 This project demonstrated how general e-commerce website will be looked like and functional.
 
