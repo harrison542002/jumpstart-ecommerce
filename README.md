@@ -25,3 +25,4 @@ This project demonstrated how general e-commerce website will be looked like and
 
 - All products are loaded dynamically from working backend API.
 - Products may not be displayed as backend is not hosted yet.
+- <b>Project Status : Still In Process</b>
