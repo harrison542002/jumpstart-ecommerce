@@ -1,7 +1,7 @@
 import Google from "../assets/google-icon.svg";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { login } from "../services/Auth";
@@ -9,6 +9,7 @@ import Cookies from "universal-cookie";
 type Props = {};
 
 const Login = (props: Props) => {
+  const navigate = useNavigate();
   const cookie = new Cookies();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -27,6 +28,8 @@ const Login = (props: Props) => {
         const token = res.data.accessToken;
         cookie.set("token", token);
         cookie.set("isAllowed", true);
+        navigate("/products");
+        navigate(0);
       })
       .catch((error) => {
         setError("Please Provide Correct Credentials!");

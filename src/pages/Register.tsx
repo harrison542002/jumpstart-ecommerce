@@ -1,14 +1,18 @@
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Google from "../assets/google-icon.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { signUp } from "../services/Auth";
+import Cookies from "universal-cookie";
 
 type Props = {};
 
 const Register = (props: Props) => {
+  const cookie = new Cookies();
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -29,6 +33,17 @@ const Register = (props: Props) => {
       setIsError(true);
       return;
     }
+    signUp(firstName, lastName, email, password)
+      .then((res) => {
+        const token = res.data.accessToken;
+        cookie.set("token", token);
+        cookie.set("isAllowed", true);
+        navigate("/products");
+      })
+      .catch((error) => {
+        setError(error.response.data.message);
+        setIsError(true);
+      });
   };
   return (
     <motion.div

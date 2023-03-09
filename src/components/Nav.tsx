@@ -4,8 +4,10 @@ import NavStatus from "../utils/NavStatus";
 import FormNav from "./navbar/FormNav";
 import PublicNav from "./navbar/PublicNav";
 
-type Props = {};
-const Nav = (props: Props) => {
+type Props = {
+  cartItems: any;
+};
+const Nav = ({ cartItems }: Props) => {
   const location = useLocation();
   const [status, setStatus] = useState<any>(NavStatus.Public);
   useEffect(() => {
@@ -20,7 +22,7 @@ const Nav = (props: Props) => {
   }, [location]);
   return (
     <>
-      {status === NavStatus.Public && <PublicNav />}
+      {status === NavStatus.Public && <PublicNav cartItems={cartItems} />}
       {status === NavStatus.LoginOrRegister && <FormNav />}
     </>
   );

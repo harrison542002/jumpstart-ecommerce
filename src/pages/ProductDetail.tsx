@@ -9,19 +9,22 @@ import { Link, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import Loading from "../components/Loading";
 import SuggestedItems from "../components/SuggestedItems";
-import { getProduct } from "../services/ProductAPI";
-import { height } from "@mui/system";
+import { addItem, getProduct } from "../services/ProductAPI";
+import CartNotifiy from "./CartNotifiy";
 
-type Props = {};
+type Props = {
+  setCartItem: any;
+  cartItems: any;
+};
 
-const ProductDetail = (props: Props) => {
+const ProductDetail = ({ setCartItem, cartItems }: Props) => {
   const cookies = new Cookies();
   const [product, setProduct] = useState<any>(null);
   const [images, setImages] = useState<any>(null);
   const [image, setImage] = useState<any>("");
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const refs = useRef<any>([]);
   refs.current = [];
-  const productImage = useRef<any>(null);
   const { id } = useParams();
   useEffect(() => {
     getProduct(id)
@@ -51,11 +54,23 @@ const ProductDetail = (props: Props) => {
       refs.current.push(el);
     }
   };
+  const addToCart = (e: any, id: any) => {
+    addItem(id)
+      .then((res) => {
+        setIsVisible(!isVisible);
+        setTimeout(() => setIsVisible(false), 1800);
+        setCartItem(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <>
       {product != null ? (
         <div className="mt-5">
-          <div className="grid grid-cols-2">
+          <CartNotifiy isVisible={isVisible} />
+          <div className="lg:grid grid-cols-2">
             <div className="grid grid-cols-9 p-10">
               <div className="mx-3">
                 {images?.length > 0 ? (
@@ -123,8 +138,24 @@ const ProductDetail = (props: Props) => {
               <div className="mt-5">
                 {cookies.get("isAllowed") === "true" ? (
                   <>
-                    <button className="bg-orange-500 p-3 rounded-lg shadow-sm font-bold text-white">
-                      Add To Cart <FontAwesomeIcon icon={faCartPlus} />
+                    <button
+                      className={
+                        "bg-orange-500 p-3 rounded-lg shadow-sm font-bold text-white"
+                      }
+                      onClick={(e) => addToCart(e, product.pid)}
+                      disabled={cartItems.find(
+                        (item) => item.product.pid === product.pid
+                      )}
+                    >
+                      {cartItems.find(
+                        (item) => item.product.pid === product.pid
+                      ) ? (
+                        "Item Had Been Already Added To Cart"
+                      ) : (
+                        <>
+                          Add To Cart <FontAwesomeIcon icon={faCartPlus} />
+                        </>
+                      )}
                     </button>
                     <button className="bg-purple-500 p-3 rounded-lg shadow-sm font-bold text-white ml-5">
                       Buy Now <FontAwesomeIcon icon={faMoneyBillTransfer} />
@@ -142,9 +173,6 @@ const ProductDetail = (props: Props) => {
             </div>
           </div>
           <div className="mt-5">
-            <h1 className="text-3xl text-center py-10 font-bold tracking-wide">
-              Related Items
-            </h1>
             <SuggestedItems
               category={product.category}
               currentId={product.pid}

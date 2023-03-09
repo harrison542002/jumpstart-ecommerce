@@ -7,20 +7,28 @@ import Terms from "../pages/Terms";
 import Nav from "./Nav";
 import ProductList from "../pages/ProductList";
 import ProductDetail from "../pages/ProductDetail";
-type Props = {};
+type Props = {
+  cartItems: any;
+  setCartItem: any;
+};
 
-const AnimatedRoutes = (props: Props) => {
+const AnimatedRoutes = ({ cartItems, setCartItem }: Props) => {
   const location = useLocation();
   return (
     <AnimatePresence>
-      <Nav />
+      <Nav cartItems={cartItems} />
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/terms" element={<Terms />}></Route>
         <Route path="/products" element={<ProductList />}></Route>
-        <Route path="/product/:id" element={<ProductDetail />}></Route>
+        <Route
+          path="/product/:id"
+          element={
+            <ProductDetail setCartItem={setCartItem} cartItems={cartItems} />
+          }
+        ></Route>
       </Routes>
     </AnimatePresence>
   );

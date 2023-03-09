@@ -1,6 +1,9 @@
 import axios from "axios";
+import Cookies from "universal-cookie";
 
-const URLPREFIX = "/product";
+const PRODUCTPREFIX = "/product";
+const CARTPREFIX = "/cart";
+const COOKIE = new Cookies();
 
 export const getProducts = (
   pageNumber: number | null,
@@ -22,11 +25,29 @@ export const getProducts = (
     pageNumber = 0;
   }
 
-  return axios.get(URLPREFIX + "/all/" + pageNumber, {
+  return axios.get(PRODUCTPREFIX + "/all/" + pageNumber, {
     params: parameter,
   });
 };
 
 export const getProduct = (id: any) => {
-  return axios.get(URLPREFIX + "/single/" + id);
+  return axios.get(PRODUCTPREFIX + "/single/" + id);
+};
+
+export const getCartItems = () => {
+  const token = COOKIE.get("token");
+  return axios.get(CARTPREFIX + "/get-items", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
+
+export const addItem = (id: any) => {
+  const token = COOKIE.get("token");
+  return axios.post(CARTPREFIX + "/add-items/" + id, null, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
 };
