@@ -1,0 +1,163 @@
+import {
+  faCartPlus,
+  faMoneyBillTransfer,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReactImageMagnify from "react-image-magnify";
+import { useEffect, useRef, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Cookies from "universal-cookie";
+import Loading from "../components/Loading";
+import SuggestedItems from "../components/SuggestedItems";
+import { getProduct } from "../services/ProductAPI";
+import { height } from "@mui/system";
+
+type Props = {};
+
+const ProductDetail = (props: Props) => {
+  const cookies = new Cookies();
+  const [product, setProduct] = useState<any>(null);
+  const [images, setImages] = useState<any>(null);
+  const [image, setImage] = useState<any>("");
+  const refs = useRef<any>([]);
+  refs.current = [];
+  const productImage = useRef<any>(null);
+  const { id } = useParams();
+  useEffect(() => {
+    getProduct(id)
+      .then((res) => {
+        setProduct(res.data);
+        setImages(res.data.productImages);
+        setImage(res.data.productImages[0].img);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const onClickImage = (image: any, i: any) => {
+    setImage(image);
+    refs.current[i].classList.add("border-orange-500");
+    console.log(refs.current[i].classList);
+
+    for (let j = 0; j < images.length; j++) {
+      if (i !== j) {
+        refs.current[j].classList.remove("border-orange-500");
+      }
+    }
+  };
+  const addRefs = (el: any) => {
+    if (el && !refs.current.includes(el)) {
+      refs.current.push(el);
+    }
+  };
+  return (
+    <>
+      {product != null ? (
+        <div className="mt-5">
+          <div className="grid grid-cols-2">
+            <div className="grid grid-cols-9 p-10">
+              <div className="mx-3">
+                {images?.length > 0 ? (
+                  images.map((img: any, index: any) => (
+                    <div className="h-10">
+                      <img
+                        src={img.img}
+                        alt={product.itemName + index}
+                        className="border my-5 rounded-lg hover:border-2 w-full h-full"
+                        onClick={(e) => onClickImage(img.img, index)}
+                        ref={addRefs}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className="col-span-8">
+                <div className="h-full">
+                  <ReactImageMagnify
+                    {...{
+                      smallImage: {
+                        alt: product.itemName,
+                        isFluidWidth: true,
+                        src: image,
+                        srcSet: images,
+                      },
+                      largeImage: {
+                        src: image,
+                        width: 1200,
+                        height: 1800,
+                      },
+                      enlargedImageContainerDimensions: {
+                        width: "200%",
+                        height: "100%",
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="p-10">
+              <h1 className="text-4xl font-extrabold tracking-wider">
+                {product.itemName}
+              </h1>
+              <div className="mt-10 text-lg">
+                <div className="grid grid-cols-2">
+                  <p className="font-semibold text-xl">Brand</p>
+                  <p>{product.brand.brandName}</p>
+                </div>
+                <div className="grid grid-cols-2 mt-4">
+                  <p className="font-semibold text-xl">Category</p>
+                  <p>{product.category}</p>
+                </div>
+                <div className="grid grid-cols-2 mt-4">
+                  <p className="font-semibold text-xl">Made In</p>
+                  <p>{product.madeIn}</p>
+                </div>
+              </div>
+              <div className="mt-10">
+                <h1 className="text-4xl font-semibold">About item</h1>
+                <p className="text-justify font-light">{product.description}</p>
+              </div>
+              <div className="mt-5">
+                {cookies.get("isAllowed") === "true" ? (
+                  <>
+                    <button className="bg-orange-500 p-3 rounded-lg shadow-sm font-bold text-white">
+                      Add To Cart <FontAwesomeIcon icon={faCartPlus} />
+                    </button>
+                    <button className="bg-purple-500 p-3 rounded-lg shadow-sm font-bold text-white ml-5">
+                      Buy Now <FontAwesomeIcon icon={faMoneyBillTransfer} />
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    to={"/register"}
+                    className="bg-orange-500 p-3 rounded-lg shadow-sm font-bold text-white"
+                  >
+                    Sign Up To Purchase
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="mt-5">
+            <h1 className="text-3xl text-center py-10 font-bold tracking-wide">
+              Related Items
+            </h1>
+            <SuggestedItems
+              category={product.category}
+              currentId={product.pid}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="p-52">
+          <Loading />
+        </div>
+      )}
+    </>
+  );
+};
+
+export default ProductDetail;

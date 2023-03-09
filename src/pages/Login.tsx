@@ -3,9 +3,36 @@ import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { login } from "../services/Auth";
+import Cookies from "universal-cookie";
 type Props = {};
 
 const Login = (props: Props) => {
+  const cookie = new Cookies();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>(
+    "Please Fill In All Required Data To Continue"
+  );
+  const [isError, setIsError] = useState<boolean>(false);
+  const onLogin = (event: React.FormEvent<HTMLButtonElement>) => {
+    setIsError(false);
+    if (email.length <= 0 || password.length <= 0) {
+      setIsError(true);
+      return;
+    }
+    login(email, password)
+      .then((res) => {
+        const token = res.data.accessToken;
+        cookie.set("token", token);
+        cookie.set("isAllowed", true);
+      })
+      .catch((error) => {
+        setError("Please Provide Correct Credentials!");
+        setIsError(true);
+      });
+  };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -20,17 +47,26 @@ const Login = (props: Props) => {
             Let's Continue Your Luruxy Shopping Experience!
           </p>
           <div className="mt-10">
+            {isError ? (
+              <h1 className="text-xl font-light text-center text-red-500">
+                {error}
+              </h1>
+            ) : (
+              <></>
+            )}
             <input
               type="email"
               className="border-b-2 block w-full mb-5 py-4 px-3 outline-none
               active:shadow-lg active:shadow-purple-500 focus:shadow-purple-500 focus:shadow-lg rounded-lg"
               placeholder="Email Address"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               type="password"
               className="border-b-2 block w-full mb-5 py-4 px-3 outline-none
               active:shadow-lg active:shadow-purple-500 focus:shadow-purple-500 focus:shadow-lg rounded-lg"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="mt-10">
@@ -38,6 +74,7 @@ const Login = (props: Props) => {
               className="text-center w-full rounded-full bg-purple-500 text-white py-5
             text-xl font-bold hover:bg-purple-600 shadow-md shadow-purple-300
             hover:-translate-y-3 transition-all delay-75 duration-700"
+              onClick={(e) => onLogin(e)}
             >
               Login
             </button>

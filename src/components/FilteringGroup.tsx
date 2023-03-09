@@ -19,6 +19,7 @@ function FilteringGroup({ type, setType, values }: Props) {
               id={value}
               value={value}
               className="mr-4 w-4 h-4"
+              defaultChecked={type?.includes(value)}
               onChange={(e) =>
                 onFiltering(e.target.value, e.target.checked, type, setType)
               }

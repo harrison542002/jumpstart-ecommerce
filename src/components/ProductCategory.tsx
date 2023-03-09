@@ -1,14 +1,16 @@
 import { motion } from "framer-motion";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 type Props = {
   img: any;
   category: string;
+  name: string;
 };
 
 const ProductCategory = (props: Props) => {
-  const { img, category } = props;
+  const { img, category, name } = props;
   return (
     <motion.div
       className="p-3"
@@ -16,8 +18,9 @@ const ProductCategory = (props: Props) => {
       whileInView={{ opacity: 1, transition: { delay: 0.05, duration: 1 } }}
       exit={{ opacity: 0 }}
     >
-      <div
-        className=" shadow-lg shadow-purple-500 rounded-lg hover:tracking-wide
+      <Link
+        to={"/products?category=" + name}
+        className="block shadow-lg shadow-purple-500 rounded-lg hover:tracking-wide
      "
       >
         <img src={img} alt="" className="rounded-t-lg" />
@@ -31,7 +34,7 @@ const ProductCategory = (props: Props) => {
             ></FontAwesomeIcon>
           </p>
         </div>
-      </div>
+      </Link>
     </motion.div>
   );
 };

@@ -1,14 +1,25 @@
 import Logo from "../../assets/js.png";
-import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import {
+  faSearch,
+  faAngleDown,
+  faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
 
 type Props = {};
 
 const PublicNav = (props: Props) => {
+  const cookies = new Cookies();
+  const location = useLocation();
   const [open, setOpen] = useState<Boolean>(false);
+  const [isAllowed, setAllowed] = useState<boolean>(false);
+  useEffect(() => {
+    const isAllowed = cookies.get("isAllowed");
+    setAllowed(isAllowed === "true");
+  }, [location]);
   function openLists() {
     setOpen(!open);
   }
@@ -57,18 +68,30 @@ border-b border-gray-200 firefox:bg-opacity-30 text-lg shadow-md grid lg:grid-co
               </div>
             </div>
           </div>
-          <Link
-            to={"/login"}
-            className="lg:flex flex-col justify-center rounded-lg"
-            replace={true}
-          >
-            <div
-              className="bg-purple-500 py-3 px-4 text-white rounded-lg font-bold
-        hover:bg-purple-700 shadow-md"
+          {isAllowed ? (
+            <Link
+              to={"/login"}
+              className="lg:flex flex-col justify-center rounded-lg"
+              replace={true}
             >
-              Login
-            </div>
-          </Link>
+              <div className="text-2xl">
+                <FontAwesomeIcon icon={faCartShopping} />
+              </div>
+            </Link>
+          ) : (
+            <Link
+              to={"/login"}
+              className="lg:flex flex-col justify-center rounded-lg"
+              replace={true}
+            >
+              <div
+                className="bg-purple-500 py-3 px-4 text-white rounded-lg font-bold
+        hover:bg-purple-700 shadow-md"
+              >
+                Login
+              </div>
+            </Link>
+          )}
         </div>
       </div>
       <div

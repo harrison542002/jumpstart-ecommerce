@@ -27,7 +27,7 @@ const Footer = (props: Props) => {
         </div>
         <div className="p-10">
           <h1 className="text-lg font-bold mb-3">Connect With Us</h1>
-          <div className="text-3xl space-x-5">
+          <div className="text-4xl space-x-5">
             <FontAwesomeIcon icon={faFacebook} className="text-blue-700" />
             <FontAwesomeIcon icon={faLinkedin} className="text-blue-500" />
             <FontAwesomeIcon icon={faInstagram} className="text-pink-300" />

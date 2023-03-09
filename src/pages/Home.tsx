@@ -8,9 +8,12 @@ import Food from "../assets/food.jpg";
 import Jewellery from "../assets/jewellery.jpg";
 import ProductCategory from "../components/ProductCategory";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import Cookies from "universal-cookie";
 type Props = {};
 
 const Home = (props: Props) => {
+  const cookies = new Cookies();
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -27,13 +30,17 @@ const Home = (props: Props) => {
               Jumpstart provides tons of Accessories for your daily. All product
               are validated and authentic based by original brand.
             </p>
-            <Link
-              to={"/register"}
-              className="text-xl bg-orange-500 p-3 rounded-lg shadow-lg font-bold text-white hover:bg-orange-600
+            {cookies.get("isAllowed") === "true" ? (
+              <></>
+            ) : (
+              <Link
+                to={"/register"}
+                className="text-xl bg-orange-500 p-3 rounded-lg shadow-lg font-bold text-white hover:bg-orange-600
             hover:-translate-y-3 transition-all delay-75 duration-700 mb-10 lg:mb-0"
-            >
-              Get Started
-            </Link>
+              >
+                Get Started
+              </Link>
+            )}
           </div>
         </div>
         <div className="lg:rounded-bl-lg">
@@ -47,12 +54,28 @@ const Home = (props: Props) => {
 
       <div className="flex justify-center">
         <div className="lg:grid grid-cols-3">
-          <ProductCategory img={Kitchen} category="Kitchen Equipments" />
-          <ProductCategory img={Dog} category="Pet Accessories" />
-          <ProductCategory img={Clothing} category="Clothing" />
-          <ProductCategory img={Electronic} category="Electronic" />
-          <ProductCategory img={Food} category="Foods" />
-          <ProductCategory img={Jewellery} category="Jewellery" />
+          <ProductCategory
+            img={Kitchen}
+            category="Kitchen Equipments"
+            name="Kitchen Equipment"
+          />
+          <ProductCategory
+            img={Dog}
+            category="Pet Accessories"
+            name="Pet Accessories"
+          />
+          <ProductCategory img={Clothing} category="Clothing" name="Clothing" />
+          <ProductCategory
+            img={Electronic}
+            category="Electronic"
+            name="Electronic"
+          />
+          <ProductCategory img={Food} category="Foods" name="Foods" />
+          <ProductCategory
+            img={Jewellery}
+            category="Jewellery"
+            name="Jewellery"
+          />
         </div>
       </div>
     </motion.div>

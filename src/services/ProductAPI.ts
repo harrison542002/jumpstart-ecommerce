@@ -26,3 +26,7 @@ export const getProducts = (
     params: parameter,
   });
 };
+
+export const getProduct = (id: any) => {
+  return axios.get(URLPREFIX + "/single/" + id);
+};

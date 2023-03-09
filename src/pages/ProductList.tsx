@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import { getProducts } from "../services/ProductAPI";
 import { motion } from "framer-motion";
@@ -45,11 +45,8 @@ const ProductList = (props: Props) => {
     getProducts(page, category, brand, lowPrice, highPrice, fixedPrice)
       .then((res) => {
         const { products, totalPages } = res.data;
-        console.log(products);
         setProducts(products);
         setTotalPages(totalPages);
-        console.log(products);
-        console.log(brand);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -110,7 +107,7 @@ const ProductList = (props: Props) => {
           <div className="grid grid-cols-3 gap-5">
             {products.map((product: any) => (
               <>
-                <div>
+                <Link to={"/product/" + product.pid}>
                   <motion.div
                     whileHover={{
                       scale: 1.05,
@@ -132,7 +129,7 @@ const ProductList = (props: Props) => {
                       {product.brand.brandName}
                     </p>
                   </div>
-                </div>
+                </Link>
               </>
             ))}
           </div>

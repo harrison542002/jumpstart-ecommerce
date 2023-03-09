@@ -6,6 +6,7 @@ import Contact from "../pages/Contact";
 import Terms from "../pages/Terms";
 import Nav from "./Nav";
 import ProductList from "../pages/ProductList";
+import ProductDetail from "../pages/ProductDetail";
 type Props = {};
 
 const AnimatedRoutes = (props: Props) => {
@@ -19,6 +20,7 @@ const AnimatedRoutes = (props: Props) => {
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/terms" element={<Terms />}></Route>
         <Route path="/products" element={<ProductList />}></Route>
+        <Route path="/product/:id" element={<ProductDetail />}></Route>
       </Routes>
     </AnimatePresence>
   );

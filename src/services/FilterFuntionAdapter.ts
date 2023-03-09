@@ -6,11 +6,14 @@ export const onFiltering = (
 ) => {
   if (checked) {
     type != null ? setType(type + value) : setType(value);
+    console.log("Hello1");
   } else {
     if (type) {
       setType(type.replace(value, ""));
+      console.log("Hello2");
     }
   }
+  console.log(type);
 };
 
 export const onFilteringForPrice = (
