@@ -7,6 +7,11 @@ import Terms from "../pages/Terms";
 import Nav from "./Nav";
 import ProductList from "../pages/ProductList";
 import ProductDetail from "../pages/ProductDetail";
+import Cart from "../pages/Cart";
+import ConfirmOrder from "../pages/ConfirmOrder";
+import AddShippingAddress from "./AddShippingAddress";
+import PaymentMethods from "../pages/PaymentMethods";
+import CreditPay from "./CreditPay";
 type Props = {
   cartItems: any;
   setCartItem: any;
@@ -29,6 +34,18 @@ const AnimatedRoutes = ({ cartItems, setCartItem }: Props) => {
             <ProductDetail setCartItem={setCartItem} cartItems={cartItems} />
           }
         ></Route>
+        <Route
+          path="/cart"
+          element={<Cart setCartItem={setCartItem} />}
+        ></Route>
+        <Route path="/confirm-order/:id" element={<ConfirmOrder />}></Route>
+        <Route
+          path="/add-shipping/:id"
+          element={<AddShippingAddress />}
+        ></Route>
+        <Route path="/payment/:id" element={<PaymentMethods />}>
+          <Route index element={<CreditPay />}></Route>
+        </Route>
       </Routes>
     </AnimatePresence>
   );

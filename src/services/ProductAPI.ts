@@ -51,3 +51,66 @@ export const addItem = (id: any) => {
     },
   });
 };
+
+export const deleteFromCart = (id: any) => {
+  const token = COOKIE.get("token");
+  return axios.delete(CARTPREFIX + "/delete-cart/" + id, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
+
+export const getShippingAddresses = () => {
+  const token = COOKIE.get("token");
+  return axios.get("/order/get-shipping", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
+
+export const postShippingAddress = (
+  fullName,
+  type,
+  phone,
+  addressDetail,
+  region,
+  city
+) => {
+  const token = COOKIE.get("token");
+  return axios.post(
+    "/order/add-shipping",
+    {
+      fullName,
+      type,
+      phone,
+      addressDetail,
+      region,
+      city,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+};
+
+export const getShippingAddress = (id: any) => {
+  const token = COOKIE.get("token");
+  return axios.get("/order/get-single-shipping/" + id, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
+
+export const getMultipleProducts = (id: any) => {
+  const token = COOKIE.get("token");
+  return axios.get(PRODUCTPREFIX + "/multiple-products/" + id, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};

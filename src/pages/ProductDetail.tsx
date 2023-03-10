@@ -41,7 +41,6 @@ const ProductDetail = ({ setCartItem, cartItems }: Props) => {
   const onClickImage = (image: any, i: any) => {
     setImage(image);
     refs.current[i].classList.add("border-orange-500");
-    console.log(refs.current[i].classList);
 
     for (let j = 0; j < images.length; j++) {
       if (i !== j) {
@@ -131,9 +130,14 @@ const ProductDetail = ({ setCartItem, cartItems }: Props) => {
                   <p>{product.madeIn}</p>
                 </div>
               </div>
+
               <div className="mt-10">
-                <h1 className="text-4xl font-semibold">About item</h1>
+                <h1 className="text-2xl font-semibold">About item</h1>
                 <p className="text-justify font-light">{product.description}</p>
+              </div>
+              <hr className="mt-5" />
+              <div className="py-5 text-orange-500 mt-5 text-2xl font-light">
+                <p>$ {product.price}</p>
               </div>
               <div className="mt-5">
                 {cookies.get("isAllowed") === "true" ? (

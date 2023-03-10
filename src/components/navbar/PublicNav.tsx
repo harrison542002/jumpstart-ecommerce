@@ -80,11 +80,11 @@ border-b border-gray-200 firefox:bg-opacity-30 text-lg shadow-md grid lg:grid-co
             <>
               <div className="flex">
                 <Link
-                  to={"/login"}
+                  to={"/cart"}
                   className="lg:flex flex-col justify-center rounded-lg"
                   replace={true}
                 >
-                  <div className="text-2xl">
+                  <div className="text-2xl hover:text-purple-700">
                     <FontAwesomeIcon icon={faCartShopping} />
                   </div>
                   {cartItems.length > 0 && (
@@ -93,7 +93,7 @@ border-b border-gray-200 firefox:bg-opacity-30 text-lg shadow-md grid lg:grid-co
                     </div>
                   )}
                 </Link>
-                <div className="mx-5 flex justify-center flex-col">
+                <div className="mx-5 flex justify-center flex-col hover:text-purple-700 ">
                   <FontAwesomeIcon
                     className="cursor-pointer"
                     icon={faEllipsisVertical}
