@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Loading from "../components/Loading";
-import { getProducts } from "../services/ProductAPI";
+import { getBrands, getProducts } from "../services/ProductAPI";
 import { motion } from "framer-motion";
 import FilteringGroup from "../components/FilteringGroup";
 import FilteringWithPrice from "../components/FilteringWithPrice";
@@ -9,7 +9,7 @@ import FilteringWithPrice from "../components/FilteringWithPrice";
 type Props = {};
 
 const ProductList = (props: Props) => {
-  const BRANDLIST = ["LV", "APPLE", "Vivo", "Hp"];
+  const [brandList, setBrandList] = useState([]);
   const CATEGORYLIST = [
     "Clothing",
     "Electronic",
@@ -42,6 +42,11 @@ const ProductList = (props: Props) => {
 
   useEffect(() => {
     setIsLoading(true);
+    getBrands().then((res) => {
+      const BrandName = res.data.map((brand) => brand.brandName);
+      setBrandList(BrandName);
+      console.log(res.data);
+    });
     getProducts(page, category, brand, lowPrice, highPrice, fixedPrice)
       .then((res) => {
         const { products, totalPages } = res.data;
@@ -62,7 +67,7 @@ const ProductList = (props: Props) => {
             <FilteringGroup
               type={brand}
               setType={setBrand}
-              values={BRANDLIST}
+              values={brandList}
             />
           </div>
         </div>

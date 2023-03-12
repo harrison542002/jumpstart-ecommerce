@@ -1,11 +1,12 @@
 import {
+  faArrowLeft,
   faCartPlus,
   faMoneyBillTransfer,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactImageMagnify from "react-image-magnify";
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import Loading from "../components/Loading";
 import SuggestedItems from "../components/SuggestedItems";
@@ -23,6 +24,7 @@ const ProductDetail = ({ setCartItem, cartItems }: Props) => {
   const [images, setImages] = useState<any>(null);
   const [image, setImage] = useState<any>("");
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const navigate = useNavigate();
   const refs = useRef<any>([]);
   refs.current = [];
   const { id } = useParams();
@@ -68,6 +70,13 @@ const ProductDetail = ({ setCartItem, cartItems }: Props) => {
     <>
       {product != null ? (
         <div className="mt-5">
+          <div
+            className="mx-14 text-lg text-purple-500 hover:underline cursor-pointer"
+            onClick={(e) => navigate(-1)}
+          >
+            <FontAwesomeIcon icon={faArrowLeft} className="mr-3" />
+            Back To Lists
+          </div>
           <CartNotifiy isVisible={isVisible} />
           <div className="lg:grid grid-cols-2">
             <div className="grid grid-cols-9 p-10">
@@ -161,9 +170,12 @@ const ProductDetail = ({ setCartItem, cartItems }: Props) => {
                         </>
                       )}
                     </button>
-                    <button className="bg-purple-500 p-3 rounded-lg shadow-sm font-bold text-white ml-5">
+                    <Link
+                      to={"/confirm-order/" + product.pid}
+                      className="bg-purple-500 p-3 rounded-lg shadow-sm font-bold text-white ml-5"
+                    >
                       Buy Now <FontAwesomeIcon icon={faMoneyBillTransfer} />
-                    </button>
+                    </Link>
                   </>
                 ) : (
                   <Link

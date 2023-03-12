@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { postShippingAddress } from "../services/ProductAPI";
 
 type Props = {};
 
 const AddShippingAddress = (props: Props) => {
+  const { id } = useParams();
   const [fullName, setFullName] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -27,7 +28,7 @@ const AddShippingAddress = (props: Props) => {
     }
     postShippingAddress(fullName, type, phone, addressDetail, region, city)
       .then((res) => {
-        console.log(res.data);
+        navigate("/confirm-order/" + id);
         navigate(0);
       })
       .catch((error) => {

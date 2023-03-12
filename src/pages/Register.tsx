@@ -137,7 +137,8 @@ const Register = (props: Props) => {
             <hr />
           </div>
           <div className="py-4">
-            <button
+            <a
+              href="http://localhost:8080/oauth2/authorize/google?redirectUrl=http://localhost:3000/testing"
               className="flex p-3 rounded-full bg-white w-full hover:bg-slate-100
         shadow-lg"
             >
@@ -145,8 +146,8 @@ const Register = (props: Props) => {
               <div className="flex flex-col justify-center w-full">
                 <p className="text-center font-bold">Sign Up With Google</p>
               </div>
-            </button>
-            <button
+            </a>
+            <a
               className="flex p-3 rounded-full bg-white w-full hover:bg-slate-100 mt-5
         shadow-lg"
             >
@@ -159,7 +160,7 @@ const Register = (props: Props) => {
                   Sign Up With Facebook
                 </p>
               </div>
-            </button>
+            </a>
             <div></div>
           </div>
         </div>

@@ -11,7 +11,10 @@ import Cart from "../pages/Cart";
 import ConfirmOrder from "../pages/ConfirmOrder";
 import AddShippingAddress from "./AddShippingAddress";
 import PaymentMethods from "../pages/PaymentMethods";
-import CreditPay from "./CreditPay";
+import CreditPay from "./payments/CreditPay";
+import CashOnDeliver from "./payments/CashOnDeliver";
+import KBZPay from "./payments/KBZPay";
+import ThankYou from "../pages/ThankYou";
 type Props = {
   cartItems: any;
   setCartItem: any;
@@ -44,8 +47,20 @@ const AnimatedRoutes = ({ cartItems, setCartItem }: Props) => {
           element={<AddShippingAddress />}
         ></Route>
         <Route path="/payment/:id" element={<PaymentMethods />}>
-          <Route index element={<CreditPay />}></Route>
+          <Route
+            index
+            element={<CreditPay setCartItem={setCartItem} />}
+          ></Route>
+          <Route
+            path="/payment/:id/cod"
+            element={<CashOnDeliver setCartItem={setCartItem} />}
+          ></Route>
+          <Route
+            path="/payment/:id/kbz"
+            element={<KBZPay setCartItem={setCartItem} />}
+          ></Route>
         </Route>
+        <Route path="/thank-you" element={<ThankYou />}></Route>
       </Routes>
     </AnimatePresence>
   );

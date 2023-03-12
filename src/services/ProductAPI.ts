@@ -5,6 +5,7 @@ const PRODUCTPREFIX = "/product";
 const CARTPREFIX = "/cart";
 const COOKIE = new Cookies();
 
+//Get all products
 export const getProducts = (
   pageNumber: number | null,
   category: string | null,
@@ -30,10 +31,12 @@ export const getProducts = (
   });
 };
 
+//Get single product with id
 export const getProduct = (id: any) => {
   return axios.get(PRODUCTPREFIX + "/single/" + id);
 };
 
+//Get all products in cart
 export const getCartItems = () => {
   const token = COOKIE.get("token");
   return axios.get(CARTPREFIX + "/get-items", {
@@ -43,6 +46,7 @@ export const getCartItems = () => {
   });
 };
 
+//Add item to cart with id
 export const addItem = (id: any) => {
   const token = COOKIE.get("token");
   return axios.post(CARTPREFIX + "/add-items/" + id, null, {
@@ -52,6 +56,7 @@ export const addItem = (id: any) => {
   });
 };
 
+//Remove product from cart
 export const deleteFromCart = (id: any) => {
   const token = COOKIE.get("token");
   return axios.delete(CARTPREFIX + "/delete-cart/" + id, {
@@ -61,6 +66,7 @@ export const deleteFromCart = (id: any) => {
   });
 };
 
+//Get all shipping address for this user
 export const getShippingAddresses = () => {
   const token = COOKIE.get("token");
   return axios.get("/order/get-shipping", {
@@ -70,6 +76,7 @@ export const getShippingAddresses = () => {
   });
 };
 
+//Add Shipping Address
 export const postShippingAddress = (
   fullName,
   type,
@@ -97,6 +104,7 @@ export const postShippingAddress = (
   );
 };
 
+//Get Shipping Address with id
 export const getShippingAddress = (id: any) => {
   const token = COOKIE.get("token");
   return axios.get("/order/get-single-shipping/" + id, {
@@ -106,6 +114,7 @@ export const getShippingAddress = (id: any) => {
   });
 };
 
+//Get multiple projects from provided Id
 export const getMultipleProducts = (id: any) => {
   const token = COOKIE.get("token");
   return axios.get(PRODUCTPREFIX + "/multiple-products/" + id, {
@@ -114,3 +123,26 @@ export const getMultipleProducts = (id: any) => {
     },
   });
 };
+
+//Add order
+export const addOrder = (
+  status: string,
+  type: string,
+  pids: any,
+  deliId: any
+) => {
+  const token = COOKIE.get("token");
+  return axios.post("/order/add-order/" + deliId, null, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    params: {
+      status,
+      type,
+      pids,
+    },
+  });
+};
+
+//Get Brands
+export const getBrands = () => axios.get(PRODUCTPREFIX + "/brands");

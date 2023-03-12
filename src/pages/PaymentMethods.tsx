@@ -5,7 +5,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Outlet, useParams, useSearchParams } from "react-router-dom";
+import { Link, Outlet, useParams, useSearchParams } from "react-router-dom";
+import DeliverAddress from "../components/DeliverAddress";
 import {
   getMultipleProducts,
   getShippingAddress,
@@ -23,12 +24,11 @@ const PaymentMethods = (props: Props) => {
     getShippingAddress(deli).then((res) => {
       console.log(res.data);
       setShippingAddresses(res.data);
-      if(id != undefined){
+      if (id != undefined) {
         getMultipleProducts(encodeURIComponent(id)).then((res) => {
-          console.log(res.data);
+          setProducts(res.data);
         });
       }
-      
     });
   }, []);
   return (
@@ -39,21 +39,64 @@ const PaymentMethods = (props: Props) => {
       <div className="grid grid-cols-5">
         <div className="col-span-3 p-5">
           <div className="flex w-full my-3">
-            <button className="p-3 w-1/3 border-2 font-bold hover:bg-slate-50">
+            <Link
+              to={`/payment/${id}?deli=${deli}`}
+              className="p-3 w-1/3 border-2 font-bold hover:bg-slate-50"
+            >
               Credit Card <FontAwesomeIcon icon={faCreditCard} />
-            </button>
-            <button className="p-3 w-1/3 border-2 font-bold hover:bg-slate-50">
+            </Link>
+            <Link
+              to={`/payment/${id}/cod?deli=${deli}`}
+              className="p-3 w-1/3 border-2 font-bold hover:bg-slate-50"
+            >
               Cash On Delivery <FontAwesomeIcon icon={faDollar} />
-            </button>
-            <button className="p-3 w-1/3 border-2 font-bold hover:bg-slate-50">
+            </Link>
+            <Link
+              to={`/payment/${id}/kbz?deli=${deli}`}
+              className="p-3 w-1/3 border-2 font-bold hover:bg-slate-50"
+            >
               KBZ Pay
-            </button>
+            </Link>
           </div>
           <div className="border-2 w-full">
             <Outlet />
           </div>
         </div>
-        <div className="col-span-2"></div>
+        <div className="col-span-2 p-10">
+          <div>
+            <p className="text-center text-xl font-bold">Summary</p>
+          </div>
+          <hr className="my-2" />
+          <div className="font-bold grid grid-cols-3 my-5">
+            <p>Product</p>
+            <p>Brand</p>
+            <p>Price in $</p>
+          </div>
+          {products.length > 0 &&
+            products.map((product) => (
+              <div className="grid grid-cols-3 my-3">
+                <p>{product.itemName}</p>
+                <p>{product.brand.brandName}</p>
+                <p>{product.price}</p>
+              </div>
+            ))}
+          <hr className="my-2" />
+          <div className="grid grid-cols-3">
+            <div></div>
+            <div className="font-bold">Total Cost</div>
+            <p className="font-semibold">
+              {products.reduce(
+                (accumulator, current) => accumulator + current.price,
+                0
+              )}
+            </p>
+          </div>
+          {shippingAddress != null && (
+            <>
+              <DeliverAddress shippingAddress={shippingAddress} id={id} />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
