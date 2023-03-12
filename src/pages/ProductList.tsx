@@ -98,7 +98,7 @@ const ProductList = (props: Props) => {
         <div className="col-span-4">
           <Loading />
         </div>
-      ) : products === undefined ? (
+      ) : products === undefined || products.length <= 0 ? (
         <div className="flex flex-col justify-center col-span-4 ">
           <p className="text-4xl text-center text-purple-500 font-extrabold">
             Sorry, No Product Was Found With This Category!

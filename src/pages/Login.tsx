@@ -1,17 +1,19 @@
 import Google from "../assets/google-icon.svg";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { login } from "../services/Auth";
 import Cookies from "universal-cookie";
+import OAuthURL from "../utils/OAuthURL";
 type Props = {};
 
 const Login = (props: Props) => {
   const navigate = useNavigate();
   const cookie = new Cookies();
-  const [email, setEmail] = useState<string>("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [email, setEmail] = useState<string>(searchParams.get("error") || "");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>(
     "Please Fill In All Required Data To Continue"
@@ -88,7 +90,8 @@ const Login = (props: Props) => {
             <hr />
           </div>
           <div className="py-4">
-            <button
+            <a
+              href={OAuthURL.google}
               className="flex p-3 rounded-full bg-white w-full hover:bg-slate-100
             shadow-lg"
             >
@@ -96,8 +99,9 @@ const Login = (props: Props) => {
               <div className="flex flex-col justify-center w-full">
                 <p className="text-center font-bold">Log In With Google</p>
               </div>
-            </button>
-            <button
+            </a>
+            <a
+              href={OAuthURL.facebook}
               className="flex p-3 rounded-full bg-white w-full hover:bg-slate-100 mt-5
             shadow-lg"
             >
@@ -110,7 +114,7 @@ const Login = (props: Props) => {
                   Log In With Facebook
                 </p>
               </div>
-            </button>
+            </a>
             <div></div>
           </div>
         </div>

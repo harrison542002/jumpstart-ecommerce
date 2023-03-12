@@ -15,6 +15,7 @@ import CreditPay from "./payments/CreditPay";
 import CashOnDeliver from "./payments/CashOnDeliver";
 import KBZPay from "./payments/KBZPay";
 import ThankYou from "../pages/ThankYou";
+import OAuthRedirect from "../pages/OAuthRedirect";
 type Props = {
   cartItems: any;
   setCartItem: any;
@@ -61,6 +62,7 @@ const AnimatedRoutes = ({ cartItems, setCartItem }: Props) => {
           ></Route>
         </Route>
         <Route path="/thank-you" element={<ThankYou />}></Route>
+        <Route path="/oauth" element={<OAuthRedirect />}></Route>
       </Routes>
     </AnimatePresence>
   );

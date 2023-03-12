@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { signUp } from "../services/Auth";
 import Cookies from "universal-cookie";
+import OAuthURL from "../utils/OAuthURL";
 
 type Props = {};
 
@@ -138,7 +139,7 @@ const Register = (props: Props) => {
           </div>
           <div className="py-4">
             <a
-              href="http://localhost:8080/oauth2/authorize/google?redirectUrl=http://localhost:3000/testing"
+              href={OAuthURL.google}
               className="flex p-3 rounded-full bg-white w-full hover:bg-slate-100
         shadow-lg"
             >
@@ -150,6 +151,7 @@ const Register = (props: Props) => {
             <a
               className="flex p-3 rounded-full bg-white w-full hover:bg-slate-100 mt-5
         shadow-lg"
+              href={OAuthURL.facebook}
             >
               <FontAwesomeIcon
                 icon={faFacebook}
