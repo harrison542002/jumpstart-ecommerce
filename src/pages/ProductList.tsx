@@ -5,11 +5,13 @@ import { getBrands, getProducts } from "../services/ProductAPI";
 import { motion } from "framer-motion";
 import FilteringGroup from "../components/FilteringGroup";
 import FilteringWithPrice from "../components/FilteringWithPrice";
+import Cookies from "universal-cookie";
 
 type Props = {};
 
 const ProductList = (props: Props) => {
   const [brandList, setBrandList] = useState([]);
+  const cookie = new Cookies();
   const CATEGORYLIST = [
     "Clothing",
     "Electronic",
@@ -42,10 +44,10 @@ const ProductList = (props: Props) => {
 
   useEffect(() => {
     setIsLoading(true);
+    console.log(decodeURIComponent(cookie.get("roles")).split(","));
     getBrands().then((res) => {
       const BrandName = res.data.map((brand) => brand.brandName);
       setBrandList(BrandName);
-      console.log(res.data);
     });
     getProducts(page, category, brand, lowPrice, highPrice, fixedPrice)
       .then((res) => {

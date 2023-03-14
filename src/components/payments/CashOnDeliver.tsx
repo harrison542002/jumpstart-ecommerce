@@ -22,16 +22,23 @@ const CashOnDeliver = ({ setCartItem }: Props) => {
   const deli = searchParams.get("deli");
   const submitTransition = (e) => {
     setLoading(true);
-    addOrder(PaymentStatus.unpaid, PaymentTypes.COD, id, deli)
-      .then((res) => {
-        setCartItem([]);
-        navigate("/thank-you");
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error(error);
-      });
+    if (id != undefined) {
+      addOrder(
+        PaymentStatus.unpaid,
+        PaymentTypes.COD,
+        encodeURIComponent(id),
+        deli
+      )
+        .then((res) => {
+          setCartItem([]);
+          navigate("/thank-you");
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.error(error);
+        });
+    }
   };
   return (
     <>

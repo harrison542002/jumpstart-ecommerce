@@ -1,7 +1,7 @@
 const NavStatus = {
   LoginOrRegister: "loginorregister",
   Public: "public",
-  Authenticated: "authenticated",
+  ADMIN: "admin",
 };
 
 export default NavStatus;

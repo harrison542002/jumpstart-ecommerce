@@ -34,16 +34,23 @@ const CreditPay = ({ setCartItem }: Props) => {
       setLoading(false);
       return;
     }
-    addOrder(PaymentStatus.paid, PaymentTypes.CREDIT, id, deli)
-      .then((res) => {
-        setCartItem([]);
-        navigate("/thank-you");
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error(error);
-      });
+    if (id != undefined) {
+      addOrder(
+        PaymentStatus.paid,
+        PaymentTypes.CREDIT,
+        encodeURIComponent(id),
+        deli
+      )
+        .then((res) => {
+          setCartItem([]);
+          navigate("/thank-you");
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.error(error);
+        });
+    }
   };
   return (
     <>

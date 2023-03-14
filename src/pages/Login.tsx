@@ -27,10 +27,16 @@ const Login = (props: Props) => {
     }
     login(email, password)
       .then((res) => {
-        const token = res.data.accessToken;
-        cookie.set("token", token);
         cookie.set("isAllowed", true);
-        navigate("/products");
+        if (
+          decodeURIComponent(cookie.get("roles"))
+            .split(",")
+            .includes("ROLE_ADMIN")
+        ) {
+          navigate("/admin");
+        } else {
+          navigate("/products");
+        }
         navigate(0);
       })
       .catch((error) => {

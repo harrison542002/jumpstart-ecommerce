@@ -24,16 +24,23 @@ const KBZPay = ({ setCartItem }: Props) => {
       setLoading(false);
       return;
     }
-    addOrder(PaymentStatus.paid, PaymentTypes.KBZ, id, deli)
-      .then((res) => {
-        setCartItem([]);
-        navigate("/thank-you");
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error(error);
-      });
+    if (id != undefined) {
+      addOrder(
+        PaymentStatus.paid,
+        PaymentTypes.KBZ,
+        encodeURIComponent(id),
+        deli
+      )
+        .then((res) => {
+          setCartItem([]);
+          navigate("/thank-you");
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.error(error);
+        });
+    }
   };
   return (
     <>

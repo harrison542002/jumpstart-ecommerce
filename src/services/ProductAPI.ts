@@ -146,3 +146,13 @@ export const addOrder = (
 
 //Get Brands
 export const getBrands = () => axios.get(PRODUCTPREFIX + "/brands");
+
+//Get Summary
+export const getSummary = () => {
+  const token = COOKIE.get("token");
+  return axios.get("/order/total-summary", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
