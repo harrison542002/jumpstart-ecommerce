@@ -4,11 +4,11 @@ import Sidebar from "../navbar/Sidebar";
 
 type Props = {};
 
-const AdminDashboard = (props: Props) => {
+const BrandDashboard = (props: Props) => {
   return (
     <div className="grid grid-cols-5">
       <div className="col-span-1">
-        <Sidebar role="admin" />
+        <Sidebar role="brand" />
       </div>
       <div className="flex justify-center my-10 col-span-4">
         <Outlet />
@@ -17,4 +17,4 @@ const AdminDashboard = (props: Props) => {
   );
 };
 
-export default AdminDashboard;
+export default BrandDashboard;

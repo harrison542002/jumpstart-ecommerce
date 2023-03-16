@@ -24,6 +24,7 @@ const Register = (props: Props) => {
   const [isError, setIsError] = useState<boolean>(false);
 
   const onSignUp = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setIsError(false);
     if (
       firstName.length <= 0 ||
@@ -128,6 +129,7 @@ const Register = (props: Props) => {
         text-xl font-bold hover:bg-purple-600 shadow-md shadow-purple-300
         hover:-translate-y-3 transition-all delay-75 duration-700"
               onClick={(e) => onSignUp(e)}
+              type="submit"
             >
               Sign Up
             </button>

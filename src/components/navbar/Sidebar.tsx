@@ -1,41 +1,15 @@
-import {
-  faLightbulb,
-  faListCheck,
-  faPlus,
-  faUsers,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import AdminNav from "./AdminNav";
+import BrandNav from "./BrandNav";
 
-type Props = {};
+type Props = {
+  role: string;
+};
 
-const Sidebar = (props: Props) => {
+const Sidebar = ({ role }: Props) => {
   return (
     <div className="border h-full p-3">
-      <div className="p-5 text-lg font-bold">
-        <Link to={"/admin"}>
-          <FontAwesomeIcon icon={faLightbulb} className="mx-2" />
-          Data Summary
-        </Link>
-      </div>
-      <div className="p-5 text-lg font-bold">
-        <Link to={"/admin/add-brand"}>
-          <FontAwesomeIcon icon={faPlus} className="mx-2" />
-          Add New Brand
-        </Link>
-      </div>
-      <div className="p-5 text-lg font-bold">
-        <Link to={"/admin/manage-brand"}>
-          <FontAwesomeIcon icon={faListCheck} className="mx-2" />
-          Manage Brands
-        </Link>
-      </div>
-      <div className="p-5 text-lg font-bold">
-        <Link to={"/admin/manage-user"}>
-          <FontAwesomeIcon icon={faUsers} className="mx-2" />
-          Manage Users
-        </Link>
-      </div>
+      {role === "admin" && <AdminNav />}
+      {role === "brand" && <BrandNav />}
     </div>
   );
 };

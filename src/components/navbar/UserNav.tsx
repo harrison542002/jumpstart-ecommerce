@@ -7,17 +7,35 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getBrandInfo } from "../../services/ProductAPI";
 
 type Props = {};
 
 const UserNav = (props: Props) => {
   const cookies = new Cookies();
   const [popUp, setPopUp] = useState<boolean>(false);
+  const [isBrand, setIsBrand] = useState<boolean>(
+    cookies.get("isBrand") === "true"
+  );
+  const [brand, setBrand] = useState<any>(null);
+
+  useEffect(() => {
+    if (isBrand) {
+      getBrandInfo()
+        .then((res) => {
+          setBrand(res.data);
+        })
+        .catch((error) => console.error(error));
+    }
+  }, []);
+
   const logout = () => {
     cookies.remove("isAllowed");
     cookies.remove("token");
+    cookies.remove("roles");
+    cookies.remove("isBrand");
   };
   return (
     <>
@@ -52,7 +70,9 @@ border-b border-gray-200 firefox:bg-opacity-30 text-lg shadow-md grid lg:grid-co
         >
           <div className="lg:flex flex-col justify-center font-bold">
             <div className="lg:flex lg:space-x-3">
-              <Avatar></Avatar>
+              <Avatar
+                src={isBrand ? (brand != null ? brand.img : "") : ""}
+              ></Avatar>
               <div className="mx-5 flex justify-center flex-col text-gray-500">
                 <FontAwesomeIcon
                   className="cursor-pointer"

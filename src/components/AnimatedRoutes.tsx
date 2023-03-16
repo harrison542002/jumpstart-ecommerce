@@ -25,6 +25,10 @@ import DataSummary from "./admin/DataSummary";
 import AddBrand from "./admin/AddBrand";
 import BrandLists from "./admin/BrandLists";
 import Users from "./admin/Users";
+import BrandDashboard from "./brand-dashboard/BrandDashboard";
+import BrandInfo from "./brand-dashboard/BrandInfo";
+import AddProduct from "./brand-dashboard/AddProduct";
+import BrandProducts from "./brand-dashboard/BrandProducts";
 type Props = {
   cartItems: any;
   setCartItem: any;
@@ -79,15 +83,27 @@ const AnimatedRoutes = ({ cartItems, setCartItem }: Props) => {
               <ProductDetail setCartItem={setCartItem} cartItems={cartItems} />
             }
           ></Route>
-        </Route>
-        <Route path="/admin" element={<AdminDashboard />}>
-          <Route index element={<DataSummary />}></Route>
-          {["/admin/add-brand", "/admin/edit-brand/:id"].map((path) => (
-            <Route path={path} key={path} element={<AddBrand />}></Route>
-          ))}
+          <Route path="/admin" element={<AdminDashboard />}>
+            <Route index element={<DataSummary />}></Route>
+            {["/admin/add-brand", "/admin/edit-brand/:id"].map((path) => (
+              <Route path={path} key={path} element={<AddBrand />}></Route>
+            ))}
 
-          <Route path="/admin/manage-brand" element={<BrandLists />}></Route>
-          <Route path="/admin/manage-user" element={<Users />}></Route>
+            <Route path="/admin/manage-brand" element={<BrandLists />}></Route>
+            <Route path="/admin/manage-user" element={<Users />}></Route>
+          </Route>
+          <Route path="/brand" element={<BrandDashboard />}>
+            <Route index element={<BrandInfo />}></Route>
+            <Route path="/brand/add-product" element={<AddProduct />}></Route>
+            <Route
+              path="/brand/product-list"
+              element={<BrandProducts />}
+            ></Route>
+            <Route
+              path="/brand/edit-product/:id"
+              element={<AddProduct />}
+            ></Route>
+          </Route>
         </Route>
 
         <Route path="/oauth" element={<OAuthRedirect />}></Route>

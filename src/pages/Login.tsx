@@ -20,6 +20,7 @@ const Login = (props: Props) => {
   );
   const [isError, setIsError] = useState<boolean>(false);
   const onLogin = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setIsError(false);
     if (email.length <= 0 || password.length <= 0) {
       setIsError(true);
@@ -34,6 +35,8 @@ const Login = (props: Props) => {
             .includes("ROLE_ADMIN")
         ) {
           navigate("/admin");
+        } else if (cookie.get("isBrand") === "true") {
+          navigate("/brand");
         } else {
           navigate("/products");
         }
@@ -85,6 +88,7 @@ const Login = (props: Props) => {
               className="text-center w-full rounded-full bg-purple-500 text-white py-5
             text-xl font-bold hover:bg-purple-600 shadow-md shadow-purple-300
             hover:-translate-y-3 transition-all delay-75 duration-700"
+              type="submit"
               onClick={(e) => onLogin(e)}
             >
               Login

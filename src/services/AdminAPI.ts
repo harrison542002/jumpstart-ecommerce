@@ -105,3 +105,85 @@ export const getUsers = () => {
     },
   });
 };
+
+export const uploadProductImages = (image, id) => {
+  const token = COOKIE.get("token");
+  const form = new FormData();
+  form.append("file", image);
+  return axios
+    .post("/product/upload/" + id, form, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const postProduct = (itemName, description, price, category, madeIn) => {
+  const token = COOKIE.get("token");
+  return axios.post(
+    "/product/postProduct",
+    {
+      itemName,
+      description,
+      price,
+      category,
+      madeIn,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+};
+
+export const getBrandProducts = () => {
+  const token = COOKIE.get("token");
+  return axios.get("/product/get-brand-product", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
+
+export const editProduct = (
+  itemName,
+  description,
+  price,
+  category,
+  madeIn,
+  pid
+) => {
+  const token = COOKIE.get("token");
+  return axios.put(
+    "/product/edit-product",
+    {
+      itemName,
+      description,
+      price,
+      category,
+      madeIn,
+      pid,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+};
+
+export const deleteProduct = (id: any) => {
+  const token = COOKIE.get("token");
+  return axios.delete("/product/delete-product/" + id, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};

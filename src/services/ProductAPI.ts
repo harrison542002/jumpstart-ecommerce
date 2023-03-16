@@ -156,3 +156,12 @@ export const getSummary = () => {
     },
   });
 };
+
+export const getBrandInfo = () => {
+  const token = COOKIE.get("token");
+  return axios.get(PRODUCTPREFIX + "/get-brand-info", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
