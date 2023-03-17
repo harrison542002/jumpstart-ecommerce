@@ -30,6 +30,9 @@ const PublicNav = ({ cartItems }: Props) => {
   const logout = () => {
     cookies.remove("isAllowed");
     cookies.remove("token");
+    cookies.remove("roles");
+    cookies.remove("isBrand");
+    cookies.remove("roles");
   };
   return (
     <>

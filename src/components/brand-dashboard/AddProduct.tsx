@@ -175,11 +175,10 @@ const AddProduct = (props: Props) => {
         for (const property in productImages) {
           uploadProductImages(productImages[property], res.data.pid);
         }
-
         setTimeout(() => {
           setLoading(false);
           navigate("/brand/product-list");
-        }, 2000);
+        }, 5000);
       })
       .catch((error) => {
         console.error(error);

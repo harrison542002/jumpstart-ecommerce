@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteProduct, getBrandProducts } from "../../services/AdminAPI";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -13,11 +13,12 @@ type Props = {};
 
 const BrandProducts = (props: Props) => {
   const [products, setProduct] = useState<any>([]);
+  const navigate = useNavigate();
   const [toDeleteId, setToDeleteId] = useState<any>(null);
   const [open, setOpen] = useState<boolean>(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
+  
   useEffect(() => {
     getBrandProducts()
       .then((res) => {

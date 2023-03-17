@@ -36,6 +36,7 @@ const UserNav = (props: Props) => {
     cookies.remove("token");
     cookies.remove("roles");
     cookies.remove("isBrand");
+    cookies.remove("roles");
   };
   return (
     <>

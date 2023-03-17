@@ -35,26 +35,26 @@ const SuggestedItems = (props: Props) => {
   };
   return (
     <>
-      {products != null && products.length > 0 ? (
-        products.map((product: any) =>
-          product.pid === currentId ? (
-            <></>
-          ) : (
-            <>
-              <h1 className="text-3xl text-center py-10 font-bold tracking-wide">
-                Related Items
-              </h1>
-              <div className="flex px-10">
-                <div
-                  className="text-2xl p-5 flex flex-col justify-center"
-                  onClick={() => scroll("left")}
-                >
-                  <FontAwesomeIcon icon={faAngleLeft} />
-                </div>
-                <div
-                  className="flex overflow-x-hidden overflow-y-hidden w-full text-5xl"
-                  ref={itemList}
-                >
+      <h1 className="text-3xl text-center py-10 font-bold tracking-wide">
+        Related Items
+      </h1>
+      <div className="flex px-10">
+        <div
+          className="text-2xl p-5 flex flex-col justify-center"
+          onClick={() => scroll("left")}
+        >
+          <FontAwesomeIcon icon={faAngleLeft} />
+        </div>
+        <div
+          className="flex overflow-x-hidden overflow-y-hidden w-full text-5xl"
+          ref={itemList}
+        >
+          {products != null && products.length > 0 ? (
+            products.map((product: any) =>
+              product.pid === currentId ? (
+                <></>
+              ) : (
+                <>
                   <Link
                     to={"/product/" + product.pid}
                     className="block mx-5 border-2 border-gray-50 shadow-sm rounded-lg"
@@ -81,20 +81,20 @@ const SuggestedItems = (props: Props) => {
                       </p>
                     </div>
                   </Link>
-                </div>
-                <div
-                  className="text-2xl p-5 flex flex-col justify-center"
-                  onClick={() => scroll("right")}
-                >
-                  <FontAwesomeIcon icon={faAngleRight} />
-                </div>
-              </div>
-            </>
-          )
-        )
-      ) : (
-        <></>
-      )}
+                </>
+              )
+            )
+          ) : (
+            <></>
+          )}
+        </div>
+        <div
+          className="text-2xl p-5 flex flex-col justify-center"
+          onClick={() => scroll("right")}
+        >
+          <FontAwesomeIcon icon={faAngleRight} />
+        </div>
+      </div>
     </>
   );
 };
