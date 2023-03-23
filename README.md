@@ -21,6 +21,13 @@ This project demonstrated how general e-commerce website will be looked like and
 - MySQL database
 - Framer Motion npm package 
 
+## Prerequisite Before Run
+
+Enter below command to install npm packages
+```node
+npm i --force
+```
+
 # Important to Note
 
 - All products are loaded dynamically from working backend API.
