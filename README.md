@@ -28,6 +28,16 @@ Enter below command to install npm packages
 npm i --force
 ```
 
+## To Run application
+```node
+npm start
+```
+
+## Check on below link when the app is running
+```
+http://localhost:3000
+```
+
 # Important to Note
 
 - All products are loaded dynamically from working backend API.
