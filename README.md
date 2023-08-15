@@ -4,7 +4,7 @@ This project demonstrated how general e-commerce website will be looked like and
 
 ## Video Demonstration
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dbwz_-eyZmU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/dbwz_-eyZmU/0.jpg)](http://www.youtube.com/watch?v=dbwz_-eyZmU)
 
 ## Features to be highlight
 
