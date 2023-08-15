@@ -6,7 +6,7 @@ This project demonstrated how general e-commerce website will be looked like and
 
 Click the image below to view the video demonstration
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/Ae3kX_7ZTMI/0.jpg)](http://www.youtube.com/watch?v=Ae3kX_7ZTMI)
+[![JUMPSTART_E-COMMERCE](http://img.youtube.com/vi/Ae3kX_7ZTMI/0.jpg)](http://www.youtube.com/watch?v=Ae3kX_7ZTMI)
 
 ## Features to be highlight
 
